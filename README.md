@@ -12,3 +12,11 @@ A project description, features to implement and approach to follow are in `POD_
 At this point you are expect to checkout `POD_A.md` or `POD_B.md` file depending on your POD.
 
 Happy Hacking ...
+
+
+**KONOM HEALTH MANAGEMENT SYSTEM**
+
+#Set up
+1. create a virtual env `python -m venv venv`
+2. activate virtual env `source venv/bin/activate`
+3. To install dependencies `pip install -r requirements.txt` 
