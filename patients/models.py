@@ -11,7 +11,7 @@ class Patient(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     age = models.IntegerField(default=0)
-    agent = models.ForeignKey('Practitioner', on_delete=models.CASCADE)
+    practitioner = models.ForeignKey('Practitioner', on_delete=models.CASCADE)
 
 
 class Practitioner(models.Model):
