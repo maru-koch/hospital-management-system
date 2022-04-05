@@ -1,7 +1,6 @@
-from django.http import HttpResponse
+from .forms import UserRegisterForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm
 
 
 def signup(request):
@@ -10,7 +9,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
+            messages.success(request, 'Account created for {username}!')
             return redirect('login')
     else:
         form = UserRegisterForm()
