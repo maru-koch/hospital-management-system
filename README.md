@@ -2,6 +2,7 @@
 
 ### For Context
 
+
 This week, we will be grouped based on our Pod (POD A and POD B) to complete two different projects. They are:
 
 1. Hotel Management System (HMS) --> (POD A)
