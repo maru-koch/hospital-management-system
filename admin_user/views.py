@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import date
 from django.conf import settings
-from account.views import is_admin
+from accounts.views import is_admin
 
 
 from admin_user import forms
