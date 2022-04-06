@@ -17,7 +17,7 @@ urlpatterns = [
     path('doctorclick', views.doctorclick_view),
     path('patientclick', views.patientclick_view),
 
-    # path('adminsignup', views.admin_signup_view),
+    path('adminsignup', views.admin_signup_view),
     # path('doctorsignup', views.doctor_signup_view,name='doctorsignup'),
     # path('patientsignup', views.patient_signup_view),
     
@@ -26,7 +26,7 @@ urlpatterns = [
     path('patientlogin', LoginView.as_view(template_name='hospital/patientlogin.html')),
 
 
-    path('afterlogin', views.afterlogin_view,name='afterlogin'),
+    path('afterlogin', views.afterlogin_view, name='afterlogin'),
     path('logout', LogoutView.as_view(template_name='hospital/index.html'),name='logout'),
 
 
