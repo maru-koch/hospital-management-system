@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load widget_tweaks %}
+{% comment %} {% load widget_tweaks %} {% endcomment %}
 <html lang="en" dir="ltr">
 
 <head>
@@ -69,14 +69,14 @@
             <div class="col-md-6">
 
               <div class="form-group">
-                {% render_field form.username class="form-control" placeholder="Username" %}
+                {% comment %} {% render_field form.username class="form-control" placeholder="Username" %} {% endcomment %}
               </div>
 
             </div>
             <div class="col-md-6">
 
               <div class="form-group">
-                {% render_field form.password class="form-control" placeholder="Password" %}
+                {% comment %} {% render_field form.password class="form-control" placeholder="Password" %} {% endcomment %}
               </div>
 
             </div>
@@ -92,7 +92,7 @@
   <br><br><br>
   
 
-  {% include "hospital/footer.html" %}
+  {% comment %} {% include "templates/footer.html" %} {% endcomment %}
 </body>
 
 </html>
