@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import datetime,timedelta,date
 from django.conf import settings
 from django.db.models import Q
+from practitioner.models import Doctor
 
 # Create your views here.
 def patient_signup_view(request):

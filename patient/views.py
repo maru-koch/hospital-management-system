@@ -11,12 +11,12 @@ from django.db.models import Q
 
 def is_patient(user):
     return user.groups.filter(name='PATIENT').exists()
-    
+
 # Create your views here.
 def patientclick_view(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect('afterlogin')
-    return render(request,'hospital/patientclick.html')
+    # if request.user.is_authenticated:
+    #     return HttpResponseRedirect('afterlogin')
+    return render(request,'patient/patientclick.html')
 
 
 def home_view(request):
