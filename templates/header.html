@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="{% static "add.css"%}"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <style type="text/css">
+    .bs-example {
+      margin: 0px;
+
+    }
+
+    .navbar-brand {
+      font-size: 20px;
+      font-family: sans-serif;
+
+    }
+
+    li{
+      color: #000;
+    }
+   
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="bs-example">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background:#DCDFE6;">
+      <a href="/" class="navbar-brand">
+        <img src="{% static "home/images/konom-logo.png" %}" height= 70px; width =  auto; style ="margin-left:40px;"/>
+      </a>
+
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <div class="dab navbar-nav" style ="width: 100%; margin-left: 20px; color:#000">
+          
+        </div>
+
+        <div class="navbar-nav" style ="width: 100%; margin-left: 20px; color:#000">
+          <a style ="color:#666; font-size: 18px; font-weight: bold" href="/adminclick" class="nav-item nav-link">Home</a>
+          <a style ="color:#666; font-size: 18px; font-weight: bold"href="/doctorclick" class="nav-item nav-link">About</a>
+          <a style ="color:#666; font-size: 18px; font-weight: bold"href="/patientclick" class="nav-item nav-link">Contact Us</a>
+          <div style ="display: flex; align-items: center; margin-left: 50px">
+            <a style ="color:#333; font-size: 18px; "href="{% url 'login' %}" class="nav-item nav-link">Log in</a>
+            <a style ="color:#333; font-size: 18px; "href="/contactus" class="nav-item nav-link">Sign</a>
+          </div>
+        </div>
+
+      </div>
+    </nav>
+  </div>
+
+</body>
+
+</html>

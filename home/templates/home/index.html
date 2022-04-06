@@ -1,14 +1,12 @@
-{% extends 'home/homebase.html' %}
+{% extends 'homebase.html' %}
 {% load static %}
-
-{% block content %}
 
 <head>
   <style media="screen">
     .jumbotron {
       margin-top: 0px;
       margin-bottom: 0px;
-      background-image: url('{% static "home/images/bg.jpg" %}');
+      background-image: url('{% static "bg.jpg" %}');
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -44,24 +42,29 @@
       }
     }
   </style>
+  {% block css_file %}
+    <link rel="stylesheet" href="{% static "home/css/home.css" %}"
+  {% endblock %}
 </head>
+{% block content %}
 <br>
 <br>
 
-<div class="jumbotron" style="margin-bottom: 0px;margin-top: 0px;">
+<div class="jumbotron" style="margin-bottom: 0px;margin-top: 0px; background-image: url('{% static 'home/images/patient_bg.jpg' %}'); width:100%; background-size: cover; height: 500px; position: static">
   <br>
-  <h5 class="display-3 glow">You’ll Love the Way We Care for You</h5>
+  {% comment %} <h5 class="display-3 glow">You’ll Love the Way We Care for You</h5> {% endcomment %}
   <br><br><br><br><br>
   <p>
-  <h3>Emergency ?</h3>
+  <h3></h3>
 
   <p class="lead">
-    <a class="btn btn-primary btn-lg" href="/patientclick" role="button">Book Appointment</a>
+    <a class="btn btn-primary btn-lg" href="{% url "patient-book-appointment" %}" role="button">Book Appointment</a>
   </p>
   <br><br>
 </div>
 
 <br><br><br><br>
+{% include "home/section_1_about.html" %}
 
 {% include "home/admin_doctor_patient_card.html" %}
 <br><br><br>

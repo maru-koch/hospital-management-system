@@ -74,37 +74,38 @@ def patient_appointment_view(request):
 
 
 
-@login_required(login_url='patientlogin')
-@user_passes_test(is_patient)
+# @login_required(login_url='patientlogin')
+# @user_passes_test(is_patient)
 def patient_book_appointment_view(request):
     appointmentForm=forms.PatientAppointmentForm()
-    patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
-    message=None
-    mydict={'appointmentForm':appointmentForm,'patient':patient,'message':message}
-    if request.method=='POST':
-        appointmentForm=forms.PatientAppointmentForm(request.POST)
-        if appointmentForm.is_valid():
-            print(request.POST.get('doctorId'))
-            desc=request.POST.get('description')
+    # patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
+    # message=None
+    # mydict={'appointmentForm':appointmentForm,'patient':patient,'message':message}
+    # if request.method=='POST':
+    #     appointmentForm=forms.PatientAppointmentForm(request.POST)
+    #     if appointmentForm.is_valid():
+    #         print(request.POST.get('doctorId'))
+    #         desc=request.POST.get('description')
 
-            doctor=models.Doctor.objects.get(user_id=request.POST.get('doctorId'))
+    #         doctor=models.Doctor.objects.get(user_id=request.POST.get('doctorId'))
             
-            appointment=appointmentForm.save(commit=False)
-            appointment.doctorId=request.POST.get('doctorId')
-            appointment.patientId=request.user.id #----user can choose any patient but only their info will be stored
-            appointment.doctorName=models.User.objects.get(id=request.POST.get('doctorId')).first_name
-            appointment.patientName=request.user.first_name #----user can choose any patient but only their info will be stored
-            appointment.status=False
-            appointment.save()
-        return HttpResponseRedirect('patient-view-appointment')
-    return render(request,'hospital/patient_book_appointment.html',context=mydict)
+    #         appointment=appointmentForm.save(commit=False)
+    #         appointment.doctorId=request.POST.get('doctorId')
+    #         appointment.patientId=request.user.id #----user can choose any patient but only their info will be stored
+    #         appointment.doctorName=models.User.objects.get(id=request.POST.get('doctorId')).first_name
+    #         appointment.patientName=request.user.first_name #----user can choose any patient but only their info will be stored
+    #         appointment.status=False
+    #         appointment.save()
+    #     return HttpResponseRedirect('patient-view-appointment')
+    # context=mydict
+    return render(request,'patient/patient_book_appointment.html', {'form':appointmentForm})
 
 
 
 def patient_view_doctor_view(request):
     doctors=models.Doctor.objects.all().filter(status=True)
     patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
-    return render(request,'hospital/patient_view_doctor.html',{'patient':patient,'doctors':doctors})
+    return render(request,'patient/patient_view_doctor.html',{'patient':patient,'doctors':doctors})
 
 
 
@@ -114,7 +115,7 @@ def search_doctor_view(request):
     # whatever user write in search box we get in query
     query = request.GET['query']
     doctors=models.Doctor.objects.all().filter(status=True).filter(Q(department__icontains=query)| Q(user__first_name__icontains=query))
-    return render(request,'hospital/patient_view_doctor.html',{'patient':patient,'doctors':doctors})
+    return render(request,'patient/patient_view_doctor.html',{'patient':patient,'doctors':doctors})
 
 
 
@@ -124,7 +125,7 @@ def search_doctor_view(request):
 def patient_view_appointment_view(request):
     patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
     appointments=models.Appointment.objects.all().filter(patientId=request.user.id)
-    return render(request,'hospital/patient_view_appointment.html',{'appointments':appointments,'patient':patient})
+    return render(request,'patient/patient_view_appointment.html',{'appointments':appointments,'patient':patient})
 
 
 
@@ -160,7 +161,7 @@ def patient_discharge_view(request):
             'patient':patient,
             'patientId':request.user.id,
         }
-    return render(request,'hospital/patient_discharge.html',context=patientDict)
+    return render(request,'patient/patient_discharge.html',context=patientDict)
 
 
 #------------------------ PATIENT RELATED VIEWS END ------------------------------
