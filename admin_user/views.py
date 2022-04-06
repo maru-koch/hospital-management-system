@@ -5,12 +5,34 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import date
 from django.conf import settings
-from accounts.views import is_admin
+from accounts.views import is_admin, is_doctor, is_patient
 
 
 from admin_user import forms
 from practitioner import models
 from patient import models
+
+
+
+#for showing signup/login button for admin(by sumit)
+def adminclick_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('afterlogin')
+    return render(request,'hospital/adminclick.html')
+
+
+#for showing signup/login button for doctor(by sumit)
+def doctorclick_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('afterlogin')
+    return render(request,'hospital/doctorclick.html')
+
+
+#for showing signup/login button for patient(by sumit)
+def patientclick_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('afterlogin')
+    return render(request,'hospital/patientclick.html')
 
 
 # Create your views here.
@@ -473,3 +495,18 @@ def contactus_view(request):
 
 
 
+def afterlogin_view(request):
+    if is_admin(request.user):
+        return redirect('admin-dashboard')
+    elif is_doctor(request.user):
+        accountapproval=models.Doctor.objects.all().filter(user_id=request.user.id,status=True)
+        if accountapproval:
+            return redirect('doctor-dashboard')
+        else:
+            return render(request,'hospital/doctor_wait_for_approval.html')
+    elif is_patient(request.user):
+        accountapproval=models.Patient.objects.all().filter(user_id=request.user.id,status=True)
+        if accountapproval:
+            return redirect('patient-dashboard')
+        else:
+            return render(request,'hospital/patient_wait_for_approval.html')
