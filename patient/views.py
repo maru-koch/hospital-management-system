@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import datetime,timedelta,date
 from django.conf import settings
 from django.db.models import Q
+from .forms import PatientForm
 
 def is_patient(user):
     return user.groups.filter(name='PATIENT').exists()
@@ -66,39 +67,27 @@ def patient_dashboard_view(request):
 
 
 
-@login_required(login_url='patientlogin')
-@user_passes_test(is_patient)
+# @login_required(login_url='patientlogin')
+# @user_passes_test(is_patient)
 def patient_appointment_view(request):
-    patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
-    return render(request,'hospital/patient_appointment.html',{'patient':patient})
+    # patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
+    return render(request,'patient/patient_appointment.html')
 
 
 
 # @login_required(login_url='patientlogin')
 # @user_passes_test(is_patient)
 def patient_book_appointment_view(request):
-    appointmentForm=forms.PatientAppointmentForm()
-    # patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
-    # message=None
-    # mydict={'appointmentForm':appointmentForm,'patient':patient,'message':message}
-    # if request.method=='POST':
-    #     appointmentForm=forms.PatientAppointmentForm(request.POST)
-    #     if appointmentForm.is_valid():
-    #         print(request.POST.get('doctorId'))
-    #         desc=request.POST.get('description')
+    form = PatientForm(request.POST)
+    # # patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
+    # # message=None
+    # mydict={'appointmentForm':form,'patient':patient,'message':message}
+    
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect('patient-view-appointment')
 
-    #         doctor=models.Doctor.objects.get(user_id=request.POST.get('doctorId'))
-            
-    #         appointment=appointmentForm.save(commit=False)
-    #         appointment.doctorId=request.POST.get('doctorId')
-    #         appointment.patientId=request.user.id #----user can choose any patient but only their info will be stored
-    #         appointment.doctorName=models.User.objects.get(id=request.POST.get('doctorId')).first_name
-    #         appointment.patientName=request.user.first_name #----user can choose any patient but only their info will be stored
-    #         appointment.status=False
-    #         appointment.save()
-    #     return HttpResponseRedirect('patient-view-appointment')
-    # context=mydict
-    return render(request,'patient/patient_book_appointment.html', {'form':appointmentForm})
+    return render(request,'patient/patient_book_appointment.html', {'form':form})
 
 
 

@@ -20,7 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("home.urls")),
     path('account/', include('accounts.urls')),
-    path('admin_user/', include('accounts.urls')),
+    # path('admin_user/', include('admin_user.urls')),
     path('patient/', include('patient.urls')),]
 
 

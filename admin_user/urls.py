@@ -9,23 +9,7 @@ from django.contrib.auth.views import LoginView,LogoutView
 
 urlpatterns = [
     
-    path('adminclick', views.adminclick_view),
-    path('doctorclick', views.doctorclick_view),
-    path('patientclick', views.patientclick_view),
-
-    path('adminsignup', views.admin_signup_view, name = "admin_signup"),
-    path('doctorsignup', views.doctor_signup_view,name='doctorsignup'),
-    path('patientsignup', views.patient_signup_view),
     
-    path('adminlogin', LoginView.as_view(template_name='hospital/adminlogin.html')),
-    path('doctorlogin', LoginView.as_view(template_name='hospital/doctorlogin.html')),
-    path('patientlogin', LoginView.as_view(template_name='hospital/patientlogin.html')),
-
-
-    path('afterlogin', views.afterlogin_view, name='afterlogin'),
-    path('logout', LogoutView.as_view(template_name='hospital/index.html'),name='logout'),
-
-
     path('admin-dashboard', views.admin_dashboard_view,name='admin-dashboard'),
 
     path('admin-doctor', views.admin_doctor_view,name='admin-doctor'),

@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect
 from . import forms, models
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
+from practitioner.models import Doctor
+from patient.models import Patient, Appointment
 
 
 
@@ -86,3 +89,32 @@ def afterlogin_view(request):
             return redirect('patient-dashboard')
         else:
             return render(request,'hospital/patient_wait_for_approval.html')
+   
+
+
+# @login_required(login_url='adminlogin')
+# @user_passes_test(is_admin)
+def admin_dashboard_view(request):
+    #for both table in admin dashboard
+    doctors=Doctor.objects.all().order_by('-id')
+    patients=Patient.objects.all().order_by('-id')
+    #for three cards
+    doctorcount=Doctor.objects.all().filter(status=True).count()
+    pendingdoctorcount=Doctor.objects.all().filter(status=False).count()
+
+    patientcount=Patient.objects.all().filter(status=True).count()
+    pendingpatientcount=Patient.objects.all().filter(status=False).count()
+
+    appointmentcount=Appointment.objects.all().filter(status=True).count()
+    pendingappointmentcount=Appointment.objects.all().filter(status=False).count()
+    mydict={
+    'doctors':doctors,
+    'patients':patients,
+    'doctorcount':doctorcount,
+    'pendingdoctorcount':pendingdoctorcount,
+    'patientcount':patientcount,
+    'pendingpatientcount':pendingpatientcount,
+    'appointmentcount':appointmentcount,
+    'pendingappointmentcount':pendingappointmentcount,
+    }
+    return render(request,'accounts/admin_dashboard.html',context=mydict)

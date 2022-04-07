@@ -1,6 +1,9 @@
-{% extends 'patient/patient_base.html' %}
-{% comment %} {% load widget_tweaks %} {% endcomment %}
-{% block content %}
+<!DOCTYPE html>
+{% extends "indexbase.html" %}
+{% load static %}
+
+<html lang="en" dir="ltr">
+
 
 <head>
   <style media="screen">
@@ -56,34 +59,30 @@
 {% endif %}
 
 
-<!------ add appointment page by patient(sumit)  ---------->
-<form method="post">
-  {% csrf_token %}
-  <div class="container register-form">
+
+{% block content %}
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Konom Medicals</title>
+</head>
+
+<body>
+<div class="wrapper">
+<h3 class='alert alert-success'>Send Us Your Valuable Feedback !</h3>
+<img src="{% static "home/images/bg-testimonial.png" %}" style= "position: relative; width: 100%; height: 100%;"/>
+<div class="container register-form" style = "width: 500px; align-items: center; margin-top: 0px; margin-bottom: 150px; position: absolute; top: 30%; left: 30%;">
     <div class="form">
       <div class="note">
-        <p>Book Appointment Details</p>
-      </div>
-      <div class="form-content">
-        <div class="row">
-          <div class="col-md-12">
-            {% for field in form%}
-              <div class="form-group">
-                {{field.label}}
-                {{field.value}}
-                {{field}}
-              </div>
-            {% endfor %}
-            {% comment %} <div class="form-group">
-              {% comment %} {% render_field appointmentForm.doctorId class="form-control" placeholder="doctor" %} {% endcomment %}
-          </div> 
-          
-          </div>
-        </div>
-        <button type="submit" class="btnSubmit">Book</button>
+        <h3 class='title' style="font-size: 40px; border-left: 4px solid pink; padding-left: 20px">Booking Successful</h3>
+        <p>Your Appointment has been successfully Booked</p>
+        <p>Details of your appointment has been forwarded to the email provided</p>
+        <button type="submit" class="btn btn-secondary btn-lg btn-block">Go to dashboard</button>
       </div>
     </div>
-  </div>
-</form>
+</div>
+</div>
 
-{% endblock content %}
+{% endblock%}
+
+
+
