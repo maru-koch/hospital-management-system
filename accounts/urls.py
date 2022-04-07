@@ -17,6 +17,8 @@ urlpatterns = [
     
     #: after a sucessful login, users are redirected 
     path('adminlogin', LoginView.as_view(template_name='accounts/adminlogin.html')),
+    
+    path('nologin', LoginView.as_view(template_name='accounts/adminlogin.html'), name='nologin'),
     path('doctorlogin', LoginView.as_view(template_name='accounts/doctorlogin.html')),
     path('patientlogin', LoginView.as_view(template_name='accounts/patientlogin.html')),
 

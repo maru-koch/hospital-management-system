@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from practitioner.models import Doctor
 from patient.models import Patient, Appointment
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 
@@ -80,26 +81,21 @@ def afterlogin_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         current_user = User.objects.get(username = username)
-
-        if user == 'Admin':
-            user = User.objects.get(username = username)
-            if user is not None:
+        user = User.objects.get(username = username)
+        if user is not None:
+            if user == 'Admin':
                 return HttpResponseRedirect('admin-dashboard')
-            return HttpResponseRedirect('login')
 
-        elif user == 'Patient':
-            user = User.objects.get(username = username)
-            if user is not None:
+            elif user == 'Patient':
                 return HttpResponseRedirect('patient-dashboard')
-            else:
-                return HttpResponseRedirect('login')
-            
-        elif user == 'Doctor':
-            user = User.objects.get(username = username)
-            if user is not None:
+               
+            elif user == 'Doctor':
                 return HttpResponseRedirect('doctor-dashboard')
-            else:
-                return HttpResponseRedirect('login')
+                
+        else:
+            return render(request,'accounts/adminlogin.html')
+
+        
     
    
 
