@@ -1,21 +1,21 @@
-{% extends 'hospital/doctor_base.html' %}
+{% extends 'practitioner/doctor_base.html' %}
 {% load static %}
 {% block content %}
-{%include 'hospital/doctor_dashboard_cards.html'%}
+{% include 'practitioner/doctor_dashboard_cards.html'%}
 <br><br><br><br>
 <div class="container">
   <div class="row">
-    <div class="panel panel-primary" style="margin-left:2%;">
+    <div class="panel panel-primary" style="margin-left:15%;">
       <div class="panel-heading" style="text-align:center;">
         <h6 class="panel-title">Recent Appointments For You</h6>
       </div>
-      <table class="table table-hover table-striped" id="dev-table">
-        <thead class="thead-dark">
+      <table class="table table-hover" id="dev-table">
+        <thead>
           <tr>
             <th>Patient Name</th>
             <th>Picture</th>
             <th>Description</th>
-            <th>Contact</th>
+            <th>Mobile</th>
             <th>Address</th>
             <th>Date</th>
           </tr>
@@ -34,6 +34,10 @@
     </div>
   </div>
 </div>
-
+<!--
+developed By : sumit kumar
+facebook : fb.com/sumit.luv
+youtube : youtube.com/lazycoders
+-->
 
 {% endblock content %}

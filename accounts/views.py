@@ -116,3 +116,10 @@ def admin_dashboard_view(request):
     'pendingappointmentcount':pendingappointmentcount,
     }
     return render(request,'accounts/admin_dashboard.html',context=mydict)
+
+
+def patient_dashboard_view(request):
+    return render(request,'patient/patient_dashboard.html')
+
+def doctor_dashboard_view(request):
+    return render(request,'practitioner/doctor_dashboard.html')
