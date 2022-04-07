@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from practitioner.models import Doctor
 from patient.models import Patient, Appointment
-
+from django.contrib.auth.models import User
 
 
 
@@ -75,20 +75,18 @@ def is_patient(user):
 
 #AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS ADMIN,DOCTOR OR PATIENT
 def afterlogin_view(request):
-    if is_admin(request.user):
-        return redirect('admin-dashboard')
-    elif is_doctor(request.user):
-        accountapproval=models.Doctor.objects.all().filter(user_id=request.user.id,status=True)
-        if accountapproval:
-            return redirect('doctor-dashboard')
-        else:
-            return render(request,'accounts/doctor_wait_for_approval.html')
-    elif is_patient(request.user):
-        accountapproval=models.Patient.objects.all().filter(user_id=request.user.id,status=True)
-        if accountapproval:
-            return redirect('patient-dashboard')
-        else:
-            return render(request,'hospital/patient_wait_for_approval.html')
+    if request.method == 'POST':
+        user = request.POST.get('user')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        current_user = User.objects.get(username = username)
+        if user == 'Admin':
+            return HttpResponseRedirect('admin-dashboard')
+        elif user == 'Patient':
+            return HttpResponseRedirect('patient-dashboard')
+        elif user == 'Doctor':
+            return HttpResponseRedirect('doctor-dashboard')
+    
    
 
 
