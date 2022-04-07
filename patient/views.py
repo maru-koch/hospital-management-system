@@ -164,5 +164,38 @@ def patient_discharge_view(request):
     return render(request,'patient/patient_discharge.html',context=patientDict)
 
 
+def medical_record(request):
+    
+    if request.method == 'POST':
+        form = MedicalRecordForm(request.POST)
+        if form.is_valid():
+            allergies = form.cleaned_data['allergies']
+            operations = form.cleaned_data['operations']
+            no_of_operations = form.cleaned_data['no_of_operations']
+            smoker = form.cleaned_data['smoker']
+            drinker = form.cleaned_data['drinker']
+            
+            medical_record = Record.objects.create(
+                
+                allergies = allergies,
+                operations = operations,
+                no_of_operations = no_of_operations,
+                smoker = smoker,
+                drinker = drinker,
+            )
+            medical_record.save()
+            
+            return redirect('is_filled')
+        
+        else:
+            form = MedicalRecordForm()
+
+        return render(request, 'is_filled.html', {'form': form})
+        
+        
+def is_filled(request):
+    return render(request, 'patient/is_filled.html')
+
+
 #------------------------ PATIENT RELATED VIEWS END ------------------------------
 #---------------------------------------------------------------------------------
