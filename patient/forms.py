@@ -2,7 +2,7 @@ from django import forms
 
 from django.contrib.auth.models import User
 from practitioner.models import Doctor
-from .models import Patient,Appointment
+from .models import Patient,Appointment, Record
 
 
 class PatientForm(forms.ModelForm):

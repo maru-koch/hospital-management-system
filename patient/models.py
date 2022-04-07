@@ -36,7 +36,7 @@ class Appointment(models.Model):
     
 class Record(models.Model):
     yes_no = [('n', 'No'), ('y', 'Yes')]
-    patient = models.ForeignKey(Person, on_delete = models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete = models.CASCADE)
     allergies = models.CharField(max_length = 200)
     operations = models.CharField(max_length = 100, choices = yes_no)
     no_of_operations = models.IntegerField()
