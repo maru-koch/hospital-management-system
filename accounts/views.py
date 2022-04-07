@@ -80,17 +80,17 @@ def afterlogin_view(request):
         user = request.POST.get('user')
         username = request.POST.get('username')
         password = request.POST.get('password')
-        current_user = User.objects.get(username = username)
-        user = User.objects.get(username = username)
-        if user is not None:
-            if user == 'Admin':
-                return HttpResponseRedirect('admin-dashboard')
+        
+        
+    
+        if user == 'Admin':
+            return HttpResponseRedirect('admin-dashboard')
 
-            elif user == 'Patient':
-                return HttpResponseRedirect('patient-dashboard')
-               
-            elif user == 'Doctor':
-                return HttpResponseRedirect('doctor-dashboard')
+        elif user == 'Patient':
+            return HttpResponseRedirect('patient-dashboard')
+            
+        elif user == 'Doctor':
+            return HttpResponseRedirect('doctor-dashboard')
                 
         else:
             return render(request,'accounts/adminlogin.html')
