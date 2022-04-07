@@ -5,13 +5,9 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import date
 from django.conf import settings
-<<<<<<< HEAD
-from accounts.views import is_admin
-
-=======
 from accounts.views import is_admin, is_doctor, is_patient
 from django.contrib.auth.models import User
->>>>>>> bcbf1f218925d843d741f66ffa96fe8892dd914a
+
 
 from admin_user import forms
 from practitioner.models import Doctor
@@ -23,48 +19,35 @@ from patient.models import Patient, PatientDischargeDetails, Appointment
 def adminclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'hospital/adminclick.html')
+    return render(request,'admin_user/adminclick.html')
 
 
 #for showing signup/login button for doctor(by sumit)
 def doctorclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'hospital/doctorclick.html')
+    return render(request,'admin_user/doctorclick.html')
 
 
 #for showing signup/login button for patient(by sumit)
 def patientclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'hospital/patientclick.html')
+    return render(request,'admin_user/patientclick.html')
 
 
 # Create your views here.
 def home_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'hospital/index.html')
+    return render(request,'admin_user/index.html')
 
 #for showing signup/login button for admin(by sumit)
 def adminclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'hospital/adminclick.html')
+    return render(request,'admin_user/adminclick.html')
 
-
-def admin_signup_view(request):
-    form=forms.AdminSigupForm()
-    if request.method=='POST':
-        form=forms.AdminSigupForm(request.POST)
-        if form.is_valid():
-            user=form.save()
-            user.set_password(user.password)
-            user.save()
-            my_admin_group = Group.objects.get_or_create(name='ADMIN')
-            my_admin_group[0].user_set.add(user)
-            return HttpResponseRedirect('adminlogin')
-    return render(request,'hospital/adminsignup.html',{'form':form})
 
 
 @login_required(login_url='adminlogin')
@@ -92,14 +75,14 @@ def admin_dashboard_view(request):
     'appointmentcount':appointmentcount,
     'pendingappointmentcount':pendingappointmentcount,
     }
-    return render(request,'hospital/admin_dashboard.html',context=mydict)
+    return render(request,'admin_user/admin_dashboard.html',context=mydict)
 
 
 # this view for sidebar click on admin page
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def admin_doctor_view(request):
-    return render(request,'hospital/admin_doctor.html')
+    return render(request,'admin_user/admin_doctor.html')
 
 
 
@@ -107,7 +90,7 @@ def admin_doctor_view(request):
 @user_passes_test(is_admin)
 def admin_view_doctor_view(request):
     doctors=Doctor.objects.all().filter(status=True)
-    return render(request,'hospital/admin_view_doctor.html',{'doctors':doctors})
+    return render(request,'admin_user/admin_view_doctor.html',{'doctors':doctors})
 
 
 
@@ -142,7 +125,7 @@ def update_doctor_view(request,pk):
             doctor.status=True
             doctor.save()
             return redirect('admin-view-doctor')
-    return render(request,'hospital/admin_update_doctor.html',context=mydict)
+    return render(request,'admin_user/admin_update_doctor.html',context=mydict)
 
 
 @login_required(login_url='adminlogin')
@@ -168,7 +151,7 @@ def admin_add_doctor_view(request):
             my_doctor_group[0].user_set.add(user)
 
         return HttpResponseRedirect('admin-view-doctor')
-    return render(request,'hospital/admin_add_doctor.html',context=mydict)
+    return render(request,'admin_user/admin_add_doctor.html',context=mydict)
 
 
 
@@ -205,14 +188,14 @@ def reject_doctor_view(request,pk):
 @user_passes_test(is_admin)
 def admin_view_doctor_specialisation_view(request):
     doctors=Doctor.objects.all().filter(status=True)
-    return render(request,'hospital/admin_view_doctor_specialisation.html',{'doctors':doctors})
+    return render(request,'admin_user/admin_view_doctor_specialisation.html',{'doctors':doctors})
 
 
 
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def admin_patient_view(request):
-    return render(request,'hospital/admin_patient.html')
+    return render(request,'admin_user/admin_patient.html')
 
 
 
@@ -220,7 +203,7 @@ def admin_patient_view(request):
 @user_passes_test(is_admin)
 def admin_view_patient_view(request):
     patients=Patient.objects.all().filter(status=True)
-    return render(request,'hospital/admin_view_patient.html',{'patients':patients})
+    return render(request,'admin_user/admin_view_patient.html',{'patients':patients})
 
 
 
@@ -256,7 +239,7 @@ def update_patient_view(request,pk):
             patient.assignedDoctorId=request.POST.get('assignedDoctorId')
             patient.save()
             return redirect('admin-view-patient')
-    return render(request,'hospital/admin_update_patient.html',context=mydict)
+    return render(request,'admin_user/admin_update_patient.html',context=mydict)
 
 
 
@@ -286,7 +269,7 @@ def admin_add_patient_view(request):
             my_patient_group[0].user_set.add(user)
 
         return HttpResponseRedirect('admin-view-patient')
-    return render(request,'hospital/admin_add_patient.html',context=mydict)
+    return render(request,'admin_user/admin_add_patient.html',context=mydict)
 
 
 
@@ -296,7 +279,7 @@ def admin_add_patient_view(request):
 def admin_approve_patient_view(request):
     #those whose approval are needed
     patients=Patient.objects.all().filter(status=False)
-    return render(request,'hospital/admin_approve_patient.html',{'patients':patients})
+    return render(request,'admin_user/admin_approve_patient.html',{'patients':patients})
 
 
 
@@ -326,7 +309,7 @@ def reject_patient_view(request,pk):
 @user_passes_test(is_admin)
 def admin_discharge_patient_view(request):
     patients=Patient.objects.all().filter(status=True)
-    return render(request,'hospital/admin_discharge_patient.html',{'patients':patients})
+    return render(request,'admin_user/admin_discharge_patient.html',{'patients':patients})
 
 
 
@@ -374,8 +357,8 @@ def discharge_patient_view(request,pk):
         pDD.OtherCharge=int(request.POST['OtherCharge'])
         pDD.total=(int(request.POST['roomCharge'])*int(d))+int(request.POST['doctorFee'])+int(request.POST['medicineCost'])+int(request.POST['OtherCharge'])
         pDD.save()
-        return render(request,'hospital/patient_final_bill.html',context=patientDict)
-    return render(request,'hospital/patient_generate_bill.html',context=patientDict)
+        return render(request,'admin_user/patient_final_bill.html',context=patientDict)
+    return render(request,'admin_user/patient_generate_bill.html',context=patientDict)
 
 
 
@@ -414,7 +397,7 @@ def download_pdf_view(request,pk):
         'OtherCharge':dischargeDetails[0].OtherCharge,
         'total':dischargeDetails[0].total,
     }
-    return render_to_pdf('hospital/download_bill.html',dict)
+    return render_to_pdf('admin_user/download_bill.html',dict)
 
 
 
@@ -422,7 +405,7 @@ def download_pdf_view(request,pk):
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def admin_appointment_view(request):
-    return render(request,'hospital/admin_appointment.html')
+    return render(request,'admin_user/admin_appointment.html')
 
 
 
@@ -430,7 +413,7 @@ def admin_appointment_view(request):
 @user_passes_test(is_admin)
 def admin_view_appointment_view(request):
     appointments=Appointment.objects.all().filter(status=True)
-    return render(request,'hospital/admin_view_appointment.html',{'appointments':appointments})
+    return render(request,'admin_user/admin_view_appointment.html',{'appointments':appointments})
 
 
 
@@ -450,7 +433,7 @@ def admin_add_appointment_view(request):
             appointment.status=True
             appointment.save()
         return HttpResponseRedirect('admin-view-appointment')
-    return render(request,'hospital/admin_add_appointment.html',context=mydict)
+    return render(request,'admin_user/admin_add_appointment.html',context=mydict)
 
 
 
@@ -459,7 +442,7 @@ def admin_add_appointment_view(request):
 def admin_approve_appointment_view(request):
     #those whose approval are needed
     appointments=Appointment.objects.all().filter(status=False)
-    return render(request,'hospital/admin_approve_appointment.html',{'appointments':appointments})
+    return render(request,'admin_user/admin_approve_appointment.html',{'appointments':appointments})
 
 
 
@@ -483,22 +466,6 @@ def reject_appointment_view(request,pk):
 #------------------------ ADMIN RELATED VIEWS END ------------------------------
 #---------------------------------------------------------------------------------
 
-def aboutus_view(request):
-    return render(request,'hospital/aboutus.html')
-
-def contactus_view(request):
-    sub = forms.ContactusForm()
-    if request.method == 'POST':
-        sub = forms.ContactusForm(request.POST)
-        if sub.is_valid():
-            email = sub.cleaned_data['Email']
-            name=sub.cleaned_data['Name']
-            message = sub.cleaned_data['Message']
-            send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
-            return render(request, 'hospital/contactussuccess.html')
-    return render(request, 'hospital/contactus.html', {'form':sub})
-
-
 
 def afterlogin_view(request):
     if is_admin(request.user):
@@ -514,4 +481,4 @@ def afterlogin_view(request):
         if accountapproval:
             return redirect('patient-dashboard')
         else:
-            return render(request,'hospital/patient_wait_for_approval.html')
+            return render(request,'admin_user/patient_wait_for_approval.html')

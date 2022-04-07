@@ -23,3 +23,11 @@ class PatientForm(forms.ModelForm):
         model= Patient
 
         fields=['address','mobile','status','symptoms','profile_pic']
+
+class AdminSigupForm(forms.ModelForm):
+    class Meta:
+        model=User
+        fields=['first_name','last_name','username','password']
+        widgets = {
+        'password': forms.PasswordInput()
+        }

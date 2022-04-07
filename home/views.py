@@ -19,7 +19,7 @@ def index(request):
     return render(request, 'home/index.html')
 
 def aboutus_view(request):
-    return render(request,'home/aboutus.html')
+    return render(request,'home/about.html')
 
 def contactus_view(request):
     sub = forms.ContactusForm()
@@ -31,4 +31,4 @@ def contactus_view(request):
             message = sub.cleaned_data['Message']
             send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
             return render(request, 'home/contactussuccess.html')
-    return render(request, 'home/contactus.html', {'form':sub})
+    return render(request, 'home/contact.html', {'form':sub})

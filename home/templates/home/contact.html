@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends "indexbase.html" %}
+{% load static %}
+
+<html lang="en" dir="ltr">
+
+{% block content %}
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Konom Medicals</title>
+</head>
+
+<body>
+<div class="wrapper">
+<h3 class='alert alert-success'>Send Us Your Valuable Feedback !</h3>
+<img src="{% static "home/images/bg-testimonial.png" %}" style= "position: relative; width: 100%; height: 100%;"/>
+<div class="container register-form" style = "width: 500px; align-items: center; margin-top: 0px; margin-bottom: 150px; position: absolute; top: 30%; left: 30%;">
+    <div class="form">
+      <div class="note">
+        <h3 class='title' style="font-size: 40px; border-left: 4px solid pink; padding-left: 20px">Contact Us</h3>
+        <form method='POST' action="{% url "contact" %}" style="margin-top: 50px">
+          {% csrf_token %}
+          <div class="form-group">
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name" name = "name">
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email address" name = "email">
+          </div>
+          <div class="form-group">
+            <br/> <br/>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name = "message"></textarea>
+          </div>
+          <button type="submit" class="btn btn-secondary btn-lg btn-block">Submit</button>
+        </form>
+      </div>
+    </div>
+</div>
+</div>
+
+{% endblock%}
+
