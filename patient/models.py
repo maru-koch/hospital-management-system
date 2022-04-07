@@ -30,3 +30,16 @@ class Appointment(models.Model):
     appointmentDate=models.DateField()
     description=models.TextField(max_length=500)
     status=models.BooleanField(default=False)
+    
+    
+class Record(models.Model):
+    yes_no = [('n', 'No'), ('y', 'Yes')]
+    patient = models.ForeignKey(Person, on_delete = models.CASCADE)
+    allergies = models.CharField(max_length = 200)
+    operations = models.CharField(max_length = 100, choices = yes_no)
+    no_of_operations = models.IntegerField()
+    smoker = models.CharField(max_length = 100, choices = yes_no)
+    drinker = models.CharField(max_length = 100, choices = yes_no)
+
+    def __str__(self):
+        return f"{self.patient.first_name} {self.patient.last_name}"
