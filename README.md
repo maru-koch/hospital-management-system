@@ -1,4 +1,4 @@
-### Konom Hospital Web Applications
+# Konom Hospital Web Applications
 
 The Konom Hospital management application is a web application that manages the operations of Konom Medicals. It is billed to be a one-stop shop for managements of the Hospitals administrative tasks.
 
