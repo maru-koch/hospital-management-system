@@ -32,3 +32,15 @@ class PatientAppointmentForm(forms.ModelForm):
     class Meta:
         model= Appointment
         fields=['description','status']
+
+        
+class MedicalRecordForm(forms.Form):
+    allergies = forms.CharField()
+    operations = forms.CharField()
+    no_of_operations = forms.IntegerField()
+    smoker = forms.CharField()
+    drinker = forms.CharField()
+    
+    class Meta:
+        model = Record
+        fields = ['allergies', 'operations', 'no_of_operations', 'smoker', 'drinker']
